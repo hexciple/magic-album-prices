@@ -40,7 +40,8 @@ json = dofile('Prices/jsonLua/json.lua')
 --]]
 available_sets = {
     --1015  BLC     --Bloomburrow Commander
-    --1014  PBLB    --Bloomburrow Promos
+    {id = 1014, code = 'PBLB'},     --Bloomburrow Promos
+    {id = 1014, code = 'BLB', is_promo_set = true },    --Bloomburrow Promos
     {id = 1013, code = 'BLB'},	    --Bloomburrow
     {id = 1012, code = 'ACR'},      --Assassin’s Creed
     {id = 1011, code = 'M3C'},      --Modern Horizons 3 Commander
