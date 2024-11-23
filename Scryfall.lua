@@ -41,7 +41,7 @@ json = dofile('Prices/jsonLua/json.lua')
 available_sets = {
     --1015  BLC     --Bloomburrow Commander
     --1014  PBLB    --Bloomburrow Promos
-    --1013  BLB	    --Bloomburrow
+    {id = 1013, code = 'BLB'},	    --Bloomburrow
     {id = 1012, code = 'ACR'},      --Assassin’s Creed
     {id = 1011, code = 'M3C'},      --Modern Horizons 3 Commander
     {id = 1010, code = 'PMH3'},     --Modern Horizons 3 Promos
@@ -924,6 +924,18 @@ version_lookup = {
             card.append_ver = true
             return '#F'
         end
+    end,
+    ['BLB'] = function(card)
+        if
+            card.data.cnum == 293 or
+            card.data.cnum == 342 or
+            is_between(card.data.cnum, 337, 340)
+        then
+            card.append_ver = true
+            return 'Alt Art #'
+        end
+        if is_between(card.data.cnum, 282, 294) then return 'Alt Art' end
+        if is_between(card.data.cnum, 343, 355) then return 'Raised Foil' end
     end,
     ['BRR'] = function(card)
         if card.data.cnum >= 64 then return 'Schematic' end
