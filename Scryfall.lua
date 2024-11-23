@@ -39,7 +39,7 @@ json = dofile('Prices/jsonLua/json.lua')
     is_promo_set    filters out any cards not tagged by Scryfall as promos
 --]]
 available_sets = {
-    --1015  BLC     --Bloomburrow Commander
+    {id = 1015, code = 'BLC'},      --Bloomburrow Commander
     {id = 1014, code = 'PBLB'},     --Bloomburrow Promos
     {id = 1014, code = 'BLB', is_promo_set = true },    --Bloomburrow Promos
     {id = 1013, code = 'BLB'},	    --Bloomburrow
@@ -937,6 +937,10 @@ version_lookup = {
         end
         if is_between(card.data.cnum, 282, 294) then return 'Alt Art' end
         if is_between(card.data.cnum, 343, 355) then return 'Raised Foil' end
+    end,
+    ['BLC'] = function(card)
+        if is_between(card.data.cnum, 1, 4) then return '' end
+        if is_between(card.data.cnum, 93, 96) or is_between(card.data.cnum, 101, 104) then return 'Raised Foil' end
     end,
     ['BRR'] = function(card)
         if card.data.cnum >= 64 then return 'Schematic' end
