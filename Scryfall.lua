@@ -18,7 +18,7 @@ Scryfall folder can be removed after prices have been parsed
     SHOW_MORE       Print some additional card data
     DUMP_JSON       Dump each card's JSON data
 --]]
-LOG_FAILURE = false
+LOG_FAILURE = true
 LOG_SUCCESS = false
 LOG_INITIAL = false
 LOG_REPARSE = true
@@ -39,7 +39,10 @@ json = dofile('Prices/jsonLua/json.lua')
     is_promo_set    filters out any cards not tagged by Scryfall as promos
 --]]
 available_sets = {
-    -- 1012 ACR Assassin’s Creed
+    --1015  BLC     --Bloomburrow Commander
+    --1014  PBLB    --Bloomburrow Promos
+    --1013  BLB	    --Bloomburrow
+    {id = 1012, code = 'ACR'},      --Assassin’s Creed
     {id = 1011, code = 'M3C'},      --Modern Horizons 3 Commander
     {id = 1010, code = 'PMH3'},     --Modern Horizons 3 Promos
     {id = 1009, code = 'MH3'},      --Modern Horizons 3
@@ -835,6 +838,8 @@ name_replace = {
     ['"Brims" Barone, Midway Mobster'] = '”Brims” Barone, Midway Mobster',
     ['"Lifetime" Pass Holder']         = '”Lifetime” Pass Holder',
     ['Meet and Greet "Sisay"']         = 'Meet and Greet “Sisay”',
+    -- Colon-like modifier character coming from Scryfall, MA expects a normal colon
+    ['Ratonhnhaké꞉ton']                = 'Ratonhnhaké:ton',
     -- MA expects meld cards to be formatted like DFCs
     ['Bruna, the Fading Light']        = 'Bruna, the Fading Light|Brisela, Voice of Nightmares',
     ['Gisela, the Broken Blade']       = 'Gisela, the Broken Blade|Brisela, Voice of Nightmares',
@@ -907,6 +912,9 @@ version_lookup = {
         if is_between(card.data.cnum, 318, 321) then return 'Display Etched' end
         if card.data.cnum == 322 then return 'Promo' end
         if card.data.collector_number:match('★') then return '' end
+    end,
+    ['ACR'] = function(card)
+        if is_between(card.data.cnum, 111, 116) then return 'Scene' end
     end,
     ['BBD'] = function(card)
         if is_between(card.data.cnum, 255, 256) then return 'Alt Art' end
