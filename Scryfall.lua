@@ -18,7 +18,7 @@ Scryfall folder can be removed after prices have been parsed
     SHOW_MORE       Print some additional card data
     DUMP_JSON       Dump each card's JSON data
 --]]
-LOG_FAILURE = true
+LOG_FAILURE = false
 LOG_SUCCESS = false
 LOG_INITIAL = false
 LOG_REPARSE = true
@@ -28,7 +28,7 @@ DUMP_JSON   = false
 --[[ Other Options
     TEST_PRICES     Sets every price that matches to 1.00
 ]]--
-TEST_PRICES = true
+TEST_PRICES = false
 
 -- Library needed for parsing the JSON files from Scryfall (https://github.com/rxi/json.lua)
 json = dofile('Prices/jsonLua/json.lua')
@@ -802,7 +802,6 @@ lang_lkup = {
 -- Lookup table that defines a replacement list for card names
 name_replace = {
     -- MA typo, report as db error
-    ['Some Disassembly Required']      = 'Some Dissassembly Required', -- reported
     ['Chaotic Aether']                 = 'Chaotic Æther',
     ['The Aether Flues']               = 'The Æther Flues',
     -- Universes Within cards that have not updated in MA yet
@@ -873,12 +872,14 @@ card_hacks = {
         ['82'] = { obj_type = CARD_OBJECT },
         ['83'] = { obj_type = CARD_OBJECT },
         ['84'] = { obj_type = CARD_OBJECT },
+        -- Scryfall doesn't have an Elven language, so need to set it manually
         ['408'] = { lang_id = ELV_ID },
         ['409'] = { lang_id = ELV_ID },
         ['410'] = { lang_id = ELV_ID },
     },
     -- lord of the rings
     ['LTR'] = {
+        -- see comment for 408-410 in LTC
         ['0'] = { lang_id = ELV_ID },
     },
     -- m15 prerelease challenge
