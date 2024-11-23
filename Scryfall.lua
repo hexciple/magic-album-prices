@@ -18,7 +18,7 @@ Scryfall folder can be removed after prices have been parsed
     SHOW_MORE       Print some additional card data
     DUMP_JSON       Dump each card's JSON data
 --]]
-LOG_FAILURE = false
+LOG_FAILURE = true
 LOG_SUCCESS = false
 LOG_INITIAL = false
 LOG_REPARSE = true
@@ -2008,16 +2008,19 @@ end
 --]]
 function reparse_failed_cards(cards_to_reparse, set)
     local group_names = {}
-    -- get a list of unique names in the reparse table
     for _, card in ipairs(cards_to_reparse) do
+        local group_name = ''
         if card.append_ver then
-            group_names[card.name .. '%' .. card.ver] = true
+            group_name = card.name .. '%' .. card.ver
         else
-            group_names[card.name] = true
+            group_name = card.name
+        end
+        if not includes(group_names, group_name) then
+            table.insert(group_names, group_name)
         end
     end
     -- generate sequential version numbers based on collector number order
-    for group_name, _ in pairs(group_names) do
+    for _, group_name in ipairs(group_names) do
         local group_cards = {}
         local group_cnums = {}
         -- save matching cards and their cnums to tables
