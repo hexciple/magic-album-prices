@@ -18,7 +18,7 @@ Scryfall folder can be removed after prices have been parsed
     SHOW_MORE       Print some additional card data
     DUMP_JSON       Dump each card's JSON data
 --]]
-LOG_FAILURE = true
+LOG_FAILURE = false
 LOG_SUCCESS = false
 LOG_INITIAL = false
 LOG_REPARSE = true
@@ -39,7 +39,8 @@ json = dofile('Prices/jsonLua/json.lua')
     is_promo_set    filters out any cards not tagged by Scryfall as promos
 --]]
 available_sets = {
-    --1017	PDSK	Duskmourn: House of Horror Promos
+    {id = 1017, code = 'DSK', is_promo_set = true },    --Duskmourn: House of Horror Promos
+    {id = 1017, code = 'PDSK'},     --Duskmourn: House of Horror Promos
     {id = 1016, code = 'DSK'},      --Duskmourn: House of Horror
     {id = 1015, code = 'BLC'},      --Bloomburrow Commander
     {id = 1014, code = 'PBLB'},     --Bloomburrow Promos
