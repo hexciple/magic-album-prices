@@ -39,6 +39,8 @@ json = dofile('Prices/jsonLua/json.lua')
     is_promo_set    filters out any cards not tagged by Scryfall as promos
 --]]
 available_sets = {
+    --1017	PDSK	Duskmourn: House of Horror Promos
+    {id = 1016, code = 'DSK'},      --Duskmourn: House of Horror
     {id = 1015, code = 'BLC'},      --Bloomburrow Commander
     {id = 1014, code = 'PBLB'},     --Bloomburrow Promos
     {id = 1014, code = 'BLB', is_promo_set = true },    --Bloomburrow Promos
@@ -990,6 +992,12 @@ version_lookup = {
     end,
     ['DOM'] = function(card)
         if card.data.cnum == 280 then return '' end
+    end,
+    ['DSK'] = function(card)
+        if is_between(card.data.cnum, 287, 301) then return 'Lurking Evil' end
+        if is_between(card.data.cnum, 351, 367) then return 'Double Exposure' end
+        if is_between(card.data.cnum, 386, 395) then return 'Japanese Showcase' end
+        if is_between(card.data.cnum, 396, 405) then return 'Fracture Foil' end
     end,
     ['DVD'] = function(card)
         if
